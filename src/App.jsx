@@ -1,5 +1,11 @@
-import { useState } from 'react'
 import './App.css'
+import { useState, useEffect } from 'react'
+
+//# Dev Import
+import data from './data.json'
+
+//# Chakra Import
+import { Center } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 import {
   Stat,
@@ -20,12 +26,24 @@ import {
 } from '@chakra-ui/react'
 
 
-
-import { Center } from '@chakra-ui/react'
-
-
 function App() {
   const [count, setCount] = useState(0)
+  const [logHistory, setLogHistory] = useState({})
+
+
+  useEffect(() => {
+    // // Making an API call in React using axios
+    // axios.get('https://api.example.com/data')
+    //   .then(response => {
+    //     // Save the data for later use, for example in state or context
+    //     // this.setState({ data: response.data });
+    //   })
+    //   .catch(error => {
+    //     // Handle any errors from the API call
+    //   });
+    console.log(data, JSON.stringify(data, null, 4))
+    setLogHistory(data)
+  }, []);
 
   return (
     <>
@@ -53,15 +71,18 @@ function App() {
           <TableCaption>Imperial to metric conversion factors</TableCaption>
           <Thead>
             <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
+              <Th>Date</Th>
+              <Th>Email</Th>
+              <Th>Message</Th>
               <Th isNumeric>multiply by</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
+              <Td>{data.Date}</Td>
+              <Td>{data.Email}</Td>
+              <Td>{data.Message}</Td>
+
               <Td isNumeric>25.4</Td>
             </Tr>
             <Tr>
