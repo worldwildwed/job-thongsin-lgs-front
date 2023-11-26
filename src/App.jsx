@@ -1,11 +1,12 @@
 import './App.css'
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 //# Dev Import
 import data from './data.json'
 
 //# Chakra Import
-import { Center } from '@chakra-ui/react'
+import { Box, Center, Input } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 import {
   Stat,
@@ -13,101 +14,98 @@ import {
   StatNumber,
 } from '@chakra-ui/react'
 
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react'
+
+import CTable from './components/cTable'
+
+const APP_PASSWORD = '12341234'
+const TTL = 15 * 60000
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [logHistory, setLogHistory] = useState({})
+  // DEFINE currentMonth for filter reference
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
 
+  // App States
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [logHistory, setLogHistory] = useState([])
+  const [logHistoryThisMonth, setlogHistoryThisMonth] = useState([])
+
+  const handlePassword = (password) => {
+    if (password == APP_PASSWORD) {
+      //! Set Storage When Password & ExpiredTime Is Matched
+      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('isLoggedInExpiredAt', Date.now() + TTL);
+      console.log('[local storage]: set isLoggedIn')
+      setIsLoggedIn(true)
+    }
+  }
 
   useEffect(() => {
-    // // Making an API call in React using axios
-    // axios.get('https://api.example.com/data')
-    //   .then(response => {
-    //     // Save the data for later use, for example in state or context
-    //     // this.setState({ data: response.data });
-    //   })
-    //   .catch(error => {
-    //     // Handle any errors from the API call
-    //   });
-    console.log(data, JSON.stringify(data, null, 4))
-    setLogHistory(data)
+    const callAllLogs = async () => {
+      try {
+        let _res = await axios.get('https://logservice.fussu.tech/alllogs')
+        console.log(typeof _res.data[0].createdAt)
+        const dateTime = new Date(_res.data[0].createdAt);
+        console.log('[ createdAt ]: ', dateTime, typeof dateTime)
+        console.log('resp:', _res.data)
+        setLogHistory(_res.data)
+
+        const logThisMonth = _res.data.filter((log, i) => {
+          const caDateTime = new Date(log.createdAt)
+          if (caDateTime.getMonth() + 1 == currentMonth) {
+            return log
+          }
+        })
+        setlogHistoryThisMonth(logThisMonth)
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+    callAllLogs()
   }, []);
 
-  return (
-    <>
-      <Grid w={'80vw'} templateColumns='repeat(10, 1fr)' gap={6} marginTop={'5%'} marginBottom={'5%'}>
-        <GridItem colSpan={5} h='10vh' bg='blue.200' borderRadius='50em' >
-          <Center h='100%'>
-            <Stat>
-              <StatLabel>Total Forms Received</StatLabel>
-              <StatNumber>345,670</StatNumber>
-            </Stat>
-          </Center>
-        </GridItem>
-        <GridItem colSpan={5} h='10vh' bg='green.500' borderRadius='50em'>
-          <Center h='100%'>
-            <Stat>
-              <StatLabel>Forms This Month</StatLabel>
-              <StatNumber>12</StatNumber>
-            </Stat>
-          </Center>
-        </GridItem>
-      </Grid>
+  return <>
+    {localStorage.getItem('isLoggedIn') && Date.now() < localStorage.getItem('isLoggedInExpiredAt') ? <>
+      <Box h={'100vh'} w='100vw' bg='blue.300'>
+        <Center>
+          <Grid w={'80vw'} templateColumns='repeat(10, 1fr)' gap={6} marginTop={'5%'} marginBottom={'2%'}>
+            <GridItem colSpan={5} h='10vh' bg='blue.200' borderRadius='50em' >
+              <Center h='100%'>
+                <Stat>
+                  <StatLabel>Total Forms Received</StatLabel>
+                  <StatNumber>{logHistory.length}</StatNumber>
+                </Stat>
+              </Center>
+            </GridItem>
+            <GridItem colSpan={5} h='10vh' bg='green.500' borderRadius='50em'>
+              <Center h='100%'>
+                <Stat>
+                  <StatLabel>Forms This Month</StatLabel>
+                  <StatNumber>{logHistoryThisMonth.length}</StatNumber>
+                </Stat>
+              </Center>
+            </GridItem>
+          </Grid>
+        </Center>
+        <CTable data={logHistory} />
+      </Box>
+    </> : <Box h='100vh' w='100vw' bg='blue.400'>
+      <Center w='100%' h='100%' paddingLeft={'20%'} paddingRight={'20%'}><Input
+        size='lg'
+        pr='4.5rem'
+        type='password'
+        variant='filled'
+        // type={show ? 'text' : 'password'}
+        placeholder='~ hi'
+        onChange={(event) => handlePassword(event.target.value)}
+      /></Center>
+    </Box>
+    }
+  </>
 
-      <TableContainer>
-        <Table variant='simple'>
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Email</Th>
-              <Th>Message</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>{data.Date}</Td>
-              <Td>{data.Email}</Td>
-              <Td>{data.Message}</Td>
 
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
 
-    </>
-  )
 }
 
 export default App

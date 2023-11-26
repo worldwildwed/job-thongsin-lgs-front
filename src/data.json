@@ -1,13 +1,83 @@
-{
-    "Name": "worldwild",
-    "Email": "worldwild@gmail.com",
-    "Message": "Hello From Elementor Wordpress Form-Data",
-    "Date": "November 6, 2023",
-    "Time": "1:32 pm",
-    "Page URL": "https://www.fussu.tech/contact/",
-    "User Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-    "Remote IP": "2001:fb1:61:d0f8:fcf0:9dee:be66:d4bb",
-    "Powered by": "Elementor",
-    "form_id": "8affed1",
-    "form_name": "New Form"
-}
+[
+    {
+        "name": "David Smith",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith222",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith3333",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith4444",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith5555",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith666",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith7",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith8",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    },
+    {
+        "name": "David Smith9999",
+        "phone": "0881231234",
+        "email": "david@gmail.com",
+        "company_name": "DS Co",
+        "purpose": "2_quotation_request",
+        "message": "Hello World, this is a message from David",
+        "ca": "some-time-stamp"
+    }
+]
