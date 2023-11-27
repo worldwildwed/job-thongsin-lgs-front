@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     const callAllLogs = async () => {
       try {
-        let _res = await axios.get(IS_PROD ? 'http://localhost:3773/alllogs' : 'https://logservice.fussu.tech/alllogs')
+        let _res = await axios.get(IS_PROD ? 'http://15.235.187.133:3773/alllogs' : 'https://logservice.fussu.tech/alllogs')
         // console.log(typeof _res.data[0].createdAt)
         // const dateTime = new Date(_res.data[0].createdAt);
         // console.log('[ createdAt ]: ', dateTime, typeof dateTime)
