@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 //# Dev Import
-import data from './data.json'
+// import data from './data.json'
 
 //# Chakra Import
 import { Box, Center, Input } from '@chakra-ui/react'
@@ -13,10 +13,9 @@ import {
   StatLabel,
   StatNumber,
 } from '@chakra-ui/react'
-
-
 import CTable from './components/CTable'
 
+const IS_PROD = true
 const APP_PASSWORD = '12341234'
 const TTL = 15 * 60000
 
@@ -44,11 +43,11 @@ function App() {
   useEffect(() => {
     const callAllLogs = async () => {
       try {
-        let _res = await axios.get('https://logservice.fussu.tech/alllogs')
-        console.log(typeof _res.data[0].createdAt)
-        const dateTime = new Date(_res.data[0].createdAt);
-        console.log('[ createdAt ]: ', dateTime, typeof dateTime)
-        console.log('resp:', _res.data)
+        let _res = await axios.get(IS_PROD ? 'http://localhost:3773' : 'https://logservice.fussu.tech/alllogs')
+        // console.log(typeof _res.data[0].createdAt)
+        // const dateTime = new Date(_res.data[0].createdAt);
+        // console.log('[ createdAt ]: ', dateTime, typeof dateTime)
+        // console.log('resp:', _res.data)
         setLogHistory(_res.data)
 
         const logThisMonth = _res.data.filter((log, i) => {

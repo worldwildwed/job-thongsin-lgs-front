@@ -127,35 +127,35 @@ const reqDummyData = {
 
 //! ROUTE HANDLER
 app.get('/', (req, res) => {
-    const htmlResponse = '<html><body><h1>Hello World 1234</h1></body></html>';
+    const htmlResponse = '<html><body><h1>Hello World :)</h1></body></html>';
     res.send(htmlResponse);
 });
 
-app.post('/echo-form-data', (req, res) => {
-    // Can handle JSON & x-www-form-urlencoded request body
-    const formData = req.body;
-    // Handle the form data here
-    console.log(formData);
-    fs.appendFile('log.txt', JSON.stringify(formData, null, 2) + '\n', (err) => {
-        if (err) {
-            console.error('Error writing to log file:', err);
-            res.sendStatus(500);
-        } else {
-            console.log('Data logged successfully');
-            res.sendStatus(200);
-        }
-    });
-});
+// app.post('/echo-form-data', (req, res) => {
+//     // Can handle JSON & x-www-form-urlencoded request body
+//     const formData = req.body;
+//     // Handle the form data here
+//     console.log(formData);
+//     fs.appendFile('log.txt', JSON.stringify(formData, null, 2) + '\n', (err) => {
+//         if (err) {
+//             console.error('Error writing to log file:', err);
+//             res.sendStatus(500);
+//         } else {
+//             console.log('Data logged successfully');
+//             res.sendStatus(200);
+//         }
+//     });
+// });
 
-app.post('/insert-mongo', (req, res) => {
-    const newData = dummyData
-    newData.save().then(() => {
-        res.send('Data saved to MongoDB');
-    }).catch((error) => {
-        console.log(error)
-        res.status(500).send('Error saving data to MongoDB');
-    })
-})
+// app.post('/insert-mongo', (req, res) => {
+//     const newData = dummyData
+//     newData.save().then(() => {
+//         res.send('Data saved to MongoDB');
+//     }).catch((error) => {
+//         console.log(error)
+//         res.status(500).send('Error saving data to MongoDB');
+//     })
+// })
 
 app.post('/webhook', (req, res) => {
     // Can handle JSON & x-www-form-urlencoded request body
