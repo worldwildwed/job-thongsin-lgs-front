@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 
 
-import CTable from './components/cTable'
+import CTable from './components/CTable'
 
 const APP_PASSWORD = '12341234'
 const TTL = 15 * 60000
